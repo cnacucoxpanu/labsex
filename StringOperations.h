@@ -3,8 +3,6 @@
 #define STRINGOPERATIONS_H
 
 #include <iostream>
-#include <cstring>
-#include <stdexcept>
 
 class StringOperations {
 private:
@@ -24,7 +22,6 @@ public:
     bool operator<(const StringOperations& other) const;
     bool operator>(const StringOperations& other) const;
     char& operator[](int index);
-    const char& operator[](int index) const;
     StringOperations operator()(int start, int end) const;
 
     void inputString();

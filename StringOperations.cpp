@@ -3,25 +3,21 @@
 #include <cstring>
 #include <stdexcept>
 
-StringOperations::StringOperations() : str(nullptr), length(0) {
-    str = new char[1];
-    str[0] = '\0';
-}
+StringOperations::StringOperations() : str(nullptr), length(0) {}
 
 StringOperations::StringOperations(const char* input) : str(nullptr), length(0) {
     if (input) {
         length = std::strlen(input);
         str = new char[length + 1];
         std::strcpy(str, input);
-    } else {
-        str = new char[1];
-        str[0] = '\0';
     }
 }
 
 StringOperations::StringOperations(const StringOperations& other) : str(nullptr), length(other.length) {
-    str = new char[length + 1];
-    std::strcpy(str, other.str);
+    if (other.str) {
+        str = new char[length + 1];
+        std::strcpy(str, other.str);
+    }
 }
 
 StringOperations::~StringOperations() {
@@ -32,57 +28,77 @@ StringOperations& StringOperations::operator=(const StringOperations& other) {
     if (this != &other) {
         delete[] str;
         length = other.length;
-        str = new char[length + 1];
-        std::strcpy(str, other.str);
+        if (other.str) {
+            str = new char[length + 1];
+            std::strcpy(str, other.str);
+        } else {
+            str = nullptr;
+        }
     }
     return *this;
 }
 
 StringOperations StringOperations::operator+(const StringOperations& other) const {
-    char* newStr = new char[length + other.length + 1];
-    std::strcpy(newStr, str);
-    std::strcat(newStr, other.str);
+    // Проверяем на nullptr
+    const char* thisStr = str ? str : "";
+    const char* otherStr = other.str ? other.str : "";
+    
+    int newLength = length + other.length;
+    char* newStr = new char[newLength + 1];
+    std::strcpy(newStr, thisStr);
+    std::strcat(newStr, otherStr);
     return StringOperations(newStr);
 }
 
 StringOperations& StringOperations::operator+=(const StringOperations& other) {
-    char* newStr = new char[length + other.length + 1];
-    std::strcpy(newStr, str);
-    std::strcat(newStr, other.str);
+    // Проверяем на nullptr
+    const char* thisStr = str ? str : "";
+    const char* otherStr = other.str ? other.str : "";
+    
+    int newLength = length + other.length;
+    char* newStr = new char[newLength + 1];
+    std::strcpy(newStr, thisStr);
+    std::strcat(newStr, otherStr);
     delete[] str;
     str = newStr;
-    length += other.length;
+    length = newLength;
     return *this;
 }
 
 bool StringOperations::operator==(const StringOperations& other) const {
+    // Проверяем на nullptr
+    if (!str && !other.str) return true;
+    if (!str || !other.str) return false;
     return std::strcmp(str, other.str) == 0;
 }
 
 bool StringOperations::operator<(const StringOperations& other) const {
+    // Проверяем на nullptr
+    if (!str && !other.str) return false;
+    if (!str) return true;
+    if (!other.str) return false;
     return std::strcmp(str, other.str) < 0;
 }
 
 bool StringOperations::operator>(const StringOperations& other) const {
+    // Проверяем на nullptr
+    if (!str && !other.str) return false;
+    if (!str) return false;
+    if (!other.str) return true;
     return std::strcmp(str, other.str) > 0;
 }
 
 char& StringOperations::operator[](int index) {
-    if (index < 0 || index >= length) {
-        throw std::out_of_range("Index out of range");
-    }
-    return str[index];
-}
-
-const char& StringOperations::operator[](int index) const {
-    if (index < 0 || index >= length) {
+    if (!str || index < 0 || index >= length) {
         throw std::out_of_range("Index out of range");
     }
     return str[index];
 }
 
 StringOperations StringOperations::operator()(int start, int end) const {
-    if (start < 0) start = 0;
+    if (!str || start < 0 || start >= length) {
+        return StringOperations();
+    }
     if (end >= length) end = length - 1;
     if (start > end) return StringOperations();
     
@@ -94,24 +110,32 @@ StringOperations StringOperations::operator()(int start, int end) const {
 }
 
 void StringOperations::inputString() {
-    std::cout << "Введите строку: ";
-    
     char buffer[80];
     std::cin.getline(buffer, 80);
     
     delete[] str;
     length = std::strlen(buffer);
-    str = new char[length + 1];
-    std::strcpy(str, buffer);
+    if (length > 0) {
+        str = new char[length + 1];
+        std::strcpy(str, buffer);
+    } else {
+        str = nullptr;
+    }
 }
 
 void StringOperations::displayString() const {
-    std::cout << "Строка: '" << str << "'" << std::endl;
-    std::cout << "Длина: " << length << std::endl;
+    std::cout << "String: '";
+    if (str) {
+        std::cout << str;
+    }
+    std::cout << "'" << std::endl;
+    std::cout << "Length: " << length << std::endl;
 }
 
 StringOperations StringOperations::intersection(const StringOperations& other) const {
-    if (isEmpty() || other.isEmpty()) return StringOperations();
+    if (!str || !other.str || length == 0 || other.length == 0) {
+        return StringOperations();
+    }
 
     char result[80] = "";
     char temp[80];
@@ -129,5 +153,8 @@ StringOperations StringOperations::intersection(const StringOperations& other) c
 }
 
 std::ostream& operator<<(std::ostream& os, const StringOperations& so) {
-    return os << so.str;
+    if (so.str) {
+        os << so.str;
+    }
+    return os;
 }
