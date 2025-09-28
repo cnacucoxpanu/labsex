@@ -21,8 +21,14 @@ class StringOperations {
         StringOperations& operator+=(const StringOpeartions& other);
         bool operator==(const StringOperations& other) const;
         bool operator<(const StringOperations& other) const;
-        
+        bool operator>(const StringOperations& other) const;
+        char& operator[](int index) const;
+        StringOperatoins operator(int start, int end) const;
 
+        void inputString();
+        void displayString() const;
+        StringOperatoins intersection(const StringOperations& other) const;
+        
 }
 
 
