@@ -1,4 +1,3 @@
-// StringOperations.h
 #ifndef STRINGOPERATIONS_H
 #define STRINGOPERATIONS_H
 
@@ -32,6 +31,7 @@ public:
     bool isEmpty() const { return length == 0; }
 
     friend std::ostream& operator<<(std::ostream& os, const StringOperations& so);
+    friend std::istream& operator>>(std::istream& is, StringOperations& so);
 };
 
 #endif
