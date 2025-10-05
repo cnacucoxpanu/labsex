@@ -42,7 +42,7 @@ public:
 
 
     std::ostream& operator<<(std::ostream& os, const PassengerCarrier& carrier);
-    std::istream& operator<<(std::istream& is, PassengerCarrier& carrier);
+    std::istream& operator>>(std::istream& is, PassengerCarrier& carrier);
 
 
 #endif
