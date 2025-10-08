@@ -8,7 +8,7 @@
 
 void demonstratePassengerCarrier() {
     std::cout << "---Base class demonstration---\n";
-    PassengerCarrier carrier1("General transport", 60, 0.5, 300); // 0.5 BYN per km
+    PassengerCarrier carrier1("General transport", 60, 0.5, 300); // 0.5 BYN за км
     std::cout << carrier1 << "\n\n";
 
     PassengerCarrier carrier2;
@@ -22,7 +22,7 @@ void demonstratePassengerCarrier() {
 
 void demonstrateAirplane() {
     std::cout << "---Airplane class demonstration---\n";
-    AirPlane airplane1("Boeing 737", 800, 2.5, 2000, 50, 10000); // 2.5 BYN per km, 50 BYN tax
+    AirPlane airplane1("Boeing 737", 800, 2.5, 2000, 50, 10000); // 2.5 BYN за км, 50 BYN такса
     std::cout << airplane1 << "\n\n";
     
     AirPlane airplane2;
@@ -40,7 +40,7 @@ void demonstrateAirplane() {
 
 void demonstrateTrain() {
     std::cout << "---Train class demonstration---\n";
-    Train train1("Sapsan", 250, 0.8, 650, 10, "luxury"); // 0.8 BYN per km
+    Train train1("Sapsan", 250, 0.8, 650, 10, "luxury"); // 0.8 BYN за км
     std::cout << train1 << "\n\n";
     
     Train train2;
@@ -58,7 +58,7 @@ void demonstrateTrain() {
 
 void demonstrateCar() {
     std::cout << "---Car class demonstration---\n";
-    Car car1("Mercedes Sprinter", 90, 0.3, 500, 8, 8.5); // 0.3 BYN per km
+    Car car1("Mercedes Sprinter", 90, 0.3, 500, 8, 8.5); // 0.3 BYN за км
     std::cout << car1 << "\n\n";
     
     Car car2;
