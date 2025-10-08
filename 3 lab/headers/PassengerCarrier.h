@@ -8,7 +8,7 @@ class PassengerCarrier {
 protected:
     std::string name;
     double speed;
-    int cost; // за один километр
+    double cost; // за один километр
     double distance;
 
 
