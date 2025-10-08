@@ -1,5 +1,5 @@
 #ifndef TRAIN_H
-#define TRAING_H
+#define TRAIN_H
 
 #include "PassengerCarrier.h"
     class Train : public PassengerCarrier {
