@@ -1,52 +1,52 @@
-#include "PassengerCarrier.h"
+#include "PassengerPerevozchik.h"
 
-PassengerCarrier::PassengerCarrier() : name(""), speed(0), cost(0), distance(0) {}
+PassengerPerevozchik::PassengerPerevozchik() : name(""), speed(0), cost(0), distance(0) {}
 
-PassengerCarrier::PassengerCarrier(const std::string& n, double s, double c, double d) 
+PassengerPerevozchik::PassengerPerevozchik(const std::string& n, double s, double c, double d) 
 : name(n), speed(s), cost(c), distance(d) {}
 
-void PassengerCarrier::setName(const std::string& newName) {
+void PassengerPerevozchik::setName(const std::string& newName) {
     name = newName;
 }
 
-std::string PassengerCarrier::getName() const {
+std::string PassengerPerevozchik::getName() const {
     return name;
 }
 
-void PassengerCarrier::setSpeed(double newSpeed) {
+void PassengerPerevozchik::setSpeed(double newSpeed) {
     speed = newSpeed;
 }
 
-double PassengerCarrier::getSpeed() const {
+double PassengerPerevozchik::getSpeed() const {
     return speed;
 }
 
-void PassengerCarrier::setCost(double newCost) {
+void PassengerPerevozchik::setCost(double newCost) {
     cost = newCost;
 }
 
-double PassengerCarrier::getCost() const {
+double PassengerPerevozchik::getCost() const {
     return cost;
 }
 
-void PassengerCarrier::setDistance(double newDistance) {
+void PassengerPerevozchik::setDistance(double newDistance) {
     distance = newDistance;
 }
 
-double PassengerCarrier::getDistance() const {
+double PassengerPerevozchik::getDistance() const {
     return distance;
 }
 
-double PassengerCarrier::calculateTime() const {
+double PassengerPerevozchik::calculateTime() const {
     return distance / speed;
 }
 
-double PassengerCarrier::calculateCost() const {
+double PassengerPerevozchik::calculateCost() const {
     return distance * cost;
 }
 
 
-std::ostream& PassengerCarrier::output(std::ostream& os) const {
+std::ostream& PassengerPerevozchik::output(std::ostream& os) const {
     os << "Name: " << name << "\n"
        << "Speed: " << speed << " km/h\n"
        << "Cost per km: " << cost << " BYN\n"
@@ -56,7 +56,7 @@ std::ostream& PassengerCarrier::output(std::ostream& os) const {
     return os;
 }
 
-std::istream& PassengerCarrier::input(std::istream& is) {
+std::istream& PassengerPerevozchik::input(std::istream& is) {
     std::cout << "Enter name: ";
     getline(is, name);
     std::cout << "Enter speed (km/h): ";
@@ -69,7 +69,7 @@ std::istream& PassengerCarrier::input(std::istream& is) {
     return is;
 }
 
-PassengerCarrier& PassengerCarrier::operator=(const PassengerCarrier& other) {
+PassengerPerevozchik& PassengerPerevozchik::operator=(const PassengerPerevozchik& other) {
     if(this != &other) {
         name = other.name;
         speed = other.speed;
@@ -79,12 +79,12 @@ PassengerCarrier& PassengerCarrier::operator=(const PassengerCarrier& other) {
     return *this;
 }
 
-PassengerCarrier::~PassengerCarrier() {}
+PassengerPerevozchik::~PassengerPerevozchik() {}
 
-std::ostream& operator<<(std::ostream& os, const PassengerCarrier& carrier) {
+std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& carrier) {
     return carrier.output(os);
 }
 
-std::istream& operator>>(std::istream& is, PassengerCarrier& carrier) {
+std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier) {
     return carrier.input(is);
 }

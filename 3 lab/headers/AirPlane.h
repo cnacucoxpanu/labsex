@@ -1,9 +1,9 @@
 #ifndef AIRPLANE_H
 #define AIRPLANE_H
 
-#include "PassengerCarrier.h"
+#include "PassengerPerevozchik.h"
 
-class AirPlane : public PassengerCarrier {
+class AirPlane : public PassengerPerevozchik {
 private:
     double airportTax; // сбор
     double flightHeight;   // высота полета

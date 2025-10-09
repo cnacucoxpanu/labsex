@@ -1,10 +1,10 @@
 #include "AirPlane.h"
 #include <iostream>
 
-AirPlane::AirPlane() : PassengerCarrier(), airportTax(0), flightHeight(0) {}
+AirPlane::AirPlane() : PassengerPerevozchik(), airportTax(0), flightHeight(0) {}
 
 AirPlane::AirPlane(const std::string& n, double s, double c, double d, double tax, double height)
-    : PassengerCarrier(n, s, c, d), airportTax(tax), flightHeight(height) {}
+    : PassengerPerevozchik(n, s, c, d), airportTax(tax), flightHeight(height) {}
 
 void AirPlane::setAirportTax(double tax) {
     airportTax = tax;
@@ -31,8 +31,8 @@ double AirPlane::calculateTime() const {
 }
 
 std::ostream& AirPlane::output(std::ostream& os) const {
-    os << "=== AIRPLANE ===\n";
-    PassengerCarrier::output(os);
+    os << "---AIRPLANE---\n";
+    PassengerPerevozchik::output(os);
     os << "\nAirport tax: " << airportTax << " BYN\n"
        << "Flight height: " << flightHeight << " m\n"
        << "Total time (with registration): " << calculateTime() << " h\n"
@@ -41,7 +41,7 @@ std::ostream& AirPlane::output(std::ostream& os) const {
 }
 
 std::istream& AirPlane::input(std::istream& is) {
-    PassengerCarrier::input(is);
+    PassengerPerevozchik::input(is);
     std::cout << "Enter airport tax (BYN): ";
     is >> airportTax;
     std::cout << "Enter flight height (m): ";
@@ -52,7 +52,7 @@ std::istream& AirPlane::input(std::istream& is) {
 
 AirPlane& AirPlane::operator=(const AirPlane& other) {
     if (this != &other) {
-        PassengerCarrier::operator=(other);
+        PassengerPerevozchik::operator=(other);
         airportTax = other.airportTax;
         flightHeight = other.flightHeight;
     }

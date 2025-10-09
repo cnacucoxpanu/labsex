@@ -1,8 +1,8 @@
 #ifndef TRAIN_H
 #define TRAIN_H
 
-#include "PassengerCarrier.h"
-    class Train : public PassengerCarrier {
+#include "PassengerPerevozchik.h"
+    class Train : public PassengerPerevozchik {
     private:
         int wagonCount;
         std::string comfortClass;

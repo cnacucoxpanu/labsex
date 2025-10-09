@@ -1,10 +1,10 @@
 #include "Train.h"
 #include <iostream>
 
-Train::Train() : PassengerCarrier(), wagonCount(0), comfortClass("") {}
+Train::Train() : PassengerPerevozchik(), wagonCount(0), comfortClass("") {}
 
 Train::Train(const std::string& n, double s, double c, double d, int wagons, const std::string& comfort)
-    : PassengerCarrier(n, s, c, d), wagonCount(wagons), comfortClass(comfort) {}
+    : PassengerPerevozchik(n, s, c, d), wagonCount(wagons), comfortClass(comfort) {}
 
 
     void Train::setWagonCount(int count) {
@@ -39,7 +39,7 @@ Train::Train(const std::string& n, double s, double c, double d, int wagons, con
 
     std::ostream& Train::output(std::ostream& os) const {
     os << "=== TRAIN ===\n";
-    PassengerCarrier::output(os);
+    PassengerPerevozchik::output(os);
     os << "\nWagon count: " << wagonCount << "\n"
        << "Comfort class: " << comfortClass << "\n"
        << "Total time (with stops): " << calculateTime() << " h\n"
@@ -48,7 +48,7 @@ Train::Train(const std::string& n, double s, double c, double d, int wagons, con
 }
 
 std::istream& Train::input(std::istream& is) {
-    PassengerCarrier::input(is);
+    PassengerPerevozchik::input(is);
     std::cout << "Enter wagon count: ";
     is >> wagonCount;
     is.ignore();
@@ -59,7 +59,7 @@ std::istream& Train::input(std::istream& is) {
 
 Train& Train::operator=(const Train& other) {
     if (this != &other) {
-        PassengerCarrier::operator=(other);
+        PassengerPerevozchik::operator=(other);
         wagonCount = other.wagonCount;
         comfortClass = other.comfortClass;
     }

@@ -1,9 +1,9 @@
 #ifndef CAR_H
 #define CAR_H
 
-#include "PassengerCarrier.h"
+#include "PassengerPerevozchik.h"
 
-    class Car : public PassengerCarrier {
+    class Car : public PassengerPerevozchik {
     private:
         int passengerCapacity;  // вместимость
         double fuelConsumption; // расход на 100 километриков

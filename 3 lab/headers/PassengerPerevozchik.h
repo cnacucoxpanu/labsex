@@ -1,10 +1,10 @@
-#ifndef PASSENGERCARRIER_H
-#define PASSENGERCARRIER_H
+#ifndef PassengerPerevozchik_H
+#define PassengerPerevozchik_H
 
 #include <iostream>
 #include <cstring>
 
-class PassengerCarrier {
+class PassengerPerevozchik {
 protected:
     std::string name;
     double speed;
@@ -13,8 +13,8 @@ protected:
 
 
 public:
-    PassengerCarrier();
-    PassengerCarrier(const std::string& n, double s, double c, double d);
+    PassengerPerevozchik();
+    PassengerPerevozchik(const std::string& n, double s, double c, double d);
 
     // методы
     void setName(const std::string& newName);
@@ -35,14 +35,14 @@ public:
     virtual std::ostream& output(std::ostream& os) const;
     virtual std::istream& input(std::istream& is);
 
-    PassengerCarrier& operator=(const PassengerCarrier& other);
+    PassengerPerevozchik& operator=(const PassengerPerevozchik& other);
 
-    virtual ~PassengerCarrier();
+    virtual ~PassengerPerevozchik();
 };
 
 
-    std::ostream& operator<<(std::ostream& os, const PassengerCarrier& carrier);
-    std::istream& operator>>(std::istream& is, PassengerCarrier& carrier);
+    std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& carrier);
+    std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier);
 
 
 #endif

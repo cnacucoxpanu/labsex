@@ -1,17 +1,17 @@
 #include <iostream>
 #include <vector>
-#include "PassengerCarrier.h"
+#include "PassengerPerevozchik.h"
 #include "AirPlane.h"
 #include "Train.h"
 #include "Car.h"
 #include <windows.h>
 
-void demonstratePassengerCarrier() {
+void demonstratePassengerPerevozchik() {
     std::cout << "---Base class demonstration---\n";
-    PassengerCarrier carrier1("General transport", 60, 0.5, 300); // 0.5 BYN за км
+    PassengerPerevozchik carrier1("General transport", 60, 0.5, 300); // 0.5 BYN за км
     std::cout << carrier1 << "\n\n";
 
-    PassengerCarrier carrier2;
+    PassengerPerevozchik carrier2;
     std::cout << "Enter data for base transport:\n";
     std::cin >> carrier2;
     std::cout << "\nResult:\n" << carrier2 << "\n\n";
@@ -58,7 +58,7 @@ void demonstrateTrain() {
 
 void demonstrateCar() {
     std::cout << "---Car class demonstration---\n";
-    Car car1("Mercedes Sprinter", 90, 0.3, 500, 8, 8.5); // 0.3 BYN за км
+    Car car1("LAMBO", 90, 0.3, 500, 8, 8.5); // 0.3 BYN за км
     std::cout << car1 << "\n\n";
     
     Car car2;
@@ -77,10 +77,10 @@ void demonstrateCar() {
 void demonstratePolymorphism() {
     std::cout << "--- Polymorphism demonstration ---\n";
     
-    std::vector<PassengerCarrier*> carriers;
+    std::vector<PassengerPerevozchik*> carriers;
     
     carriers.push_back(new AirPlane("Belavia", 850, 2.0, 1500, 45, 9500));
-    carriers.push_back(new Train("Minsk-Brest", 160, 0.6, 400, 8, "coupe"));
+    carriers.push_back(new Train("Minsk -> Saint-Petersburg", 160, 0.6, 400, 8, "coupe"));
     carriers.push_back(new Car("Minsk taxi", 80, 0.4, 300, 4, 9.0));
     
     for (size_t i = 0; i < carriers.size(); ++i) {
@@ -100,7 +100,7 @@ void setupConsole() {
 int main() {
     
     setupConsole();
-    demonstratePassengerCarrier();
+    demonstratePassengerPerevozchik();
     demonstrateAirplane();
     demonstrateTrain();
     demonstrateCar();

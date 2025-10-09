@@ -2,10 +2,10 @@
 #include <iostream>
 
 
-Car::Car() : PassengerCarrier(), passengerCapacity(0), fuelConsumption(0) {}
+Car::Car() : PassengerPerevozchik(), passengerCapacity(0), fuelConsumption(0) {}
 
 Car::Car(const std::string& n, double s, double c, double d, int capacity, double consumption) : 
-PassengerCarrier(n,s,c,d), passengerCapacity(capacity), fuelConsumption(consumption) {}
+PassengerPerevozchik(n,s,c,d), passengerCapacity(capacity), fuelConsumption(consumption) {}
 
 void Car::setPassengerCapacity(int capacity) {
     passengerCapacity = capacity;
@@ -35,7 +35,7 @@ double Car::calculateTime() const {
 
 std::ostream& Car::output(std::ostream& os) const {
     os << "=== CAR ===\n";
-    PassengerCarrier::output(os);
+    PassengerPerevozchik::output(os);
     os << "\nPassenger capacity: " << passengerCapacity << "\n"
        << "Fuel consumption: " << fuelConsumption << " l/100 km\n"
        << "Total time: " << calculateTime() << " h\n"
@@ -44,7 +44,7 @@ std::ostream& Car::output(std::ostream& os) const {
 }
 
 std::istream& Car::input(std::istream& is) {
-    PassengerCarrier::input(is);
+    PassengerPerevozchik::input(is);
     std::cout << "Enter passenger capacity: ";
     is >> passengerCapacity;
     std::cout << "Enter fuel consumption (l/100 km): ";
@@ -55,7 +55,7 @@ std::istream& Car::input(std::istream& is) {
 
 Car& Car::operator=(const Car& other) {
     if (this != &other) {
-        PassengerCarrier::operator=(other);
+        PassengerPerevozchik::operator=(other);
         passengerCapacity = other.passengerCapacity;
         fuelConsumption = other.fuelConsumption;
     }
