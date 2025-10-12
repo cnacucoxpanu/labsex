@@ -1,7 +1,6 @@
 #include "Car.h"
 #include <iostream>
 
-
 Car::Car() : PassengerPerevozchik(), passengerCapacity(0), fuelConsumption(0) {}
 
 Car::Car(const std::string& n, double s, double c, double d, int capacity, double consumption) : 
@@ -24,7 +23,6 @@ double Car::getFuelConsumption() const {
 }
 
 double Car::calculateCost() const {
-    // Стоимость топлива в BYN (примерно 2 BYN за литр)
     double fuelCost = (distance / 100) * fuelConsumption * 2.0;
     return distance * cost + fuelCost;
 }
@@ -33,24 +31,14 @@ double Car::calculateTime() const {
     return (distance / speed);
 }
 
-std::ostream& Car::output(std::ostream& os) const {
-    os << "=== CAR ===\n";
-    PassengerPerevozchik::output(os);
-    os << "\nPassenger capacity: " << passengerCapacity << "\n"
-       << "Fuel consumption: " << fuelConsumption << " l/100 km\n"
-       << "Total time: " << calculateTime() << " h\n"
-       << "Total cost (with fuel): " << calculateCost() << " BYN";
-    return os;
+bool Car::operator==(const Car& other) const {
+    return (PassengerPerevozchik::operator==(other) &&
+            passengerCapacity == other.passengerCapacity &&
+            fuelConsumption == other.fuelConsumption);
 }
 
-std::istream& Car::input(std::istream& is) {
-    PassengerPerevozchik::input(is);
-    std::cout << "Enter passenger capacity: ";
-    is >> passengerCapacity;
-    std::cout << "Enter fuel consumption (l/100 km): ";
-    is >> fuelConsumption;
-    is.ignore();
-    return is;
+bool Car::operator!=(const Car& other) const {
+    return !(*this == other);
 }
 
 Car& Car::operator=(const Car& other) {
@@ -60,4 +48,46 @@ Car& Car::operator=(const Car& other) {
         fuelConsumption = other.fuelConsumption;
     }
     return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const Car& car) {
+    os << "=== CAR ===\n"
+       << "Name: " << car.getName() << "\n"
+       << "Speed: " << car.getSpeed() << " km/h\n"
+       << "Cost per km: " << car.getCost() << " BYN\n"
+       << "Distance: " << car.getDistance() << " km\n"
+       << "Passenger capacity: " << car.getPassengerCapacity() << "\n"
+       << "Fuel consumption: " << car.getFuelConsumption() << " l/100 km\n"
+       << "Total time: " << car.calculateTime() << " h\n"
+       << "Total cost (with fuel): " << car.calculateCost() << " BYN";
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Car& car) {
+    std::string name;
+    double speed, cost, distance, consumption;
+    int capacity;
+    
+    std::cout << "Enter name: ";
+    getline(is, name);
+    std::cout << "Enter speed (km/h): ";
+    is >> speed;
+    std::cout << "Enter cost per km (BYN): ";
+    is >> cost;
+    std::cout << "Enter distance (km): ";
+    is >> distance;
+    std::cout << "Enter passenger capacity: ";
+    is >> capacity;
+    std::cout << "Enter fuel consumption (l/100 km): ";
+    is >> consumption;
+    is.ignore();
+    
+    car.setName(name);
+    car.setSpeed(speed);
+    car.setCost(cost);
+    car.setDistance(distance);
+    car.setPassengerCapacity(capacity);
+    car.setFuelConsumption(consumption);
+    
+    return is;
 }

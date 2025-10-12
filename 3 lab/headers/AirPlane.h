@@ -5,8 +5,8 @@
 
 class AirPlane : public PassengerPerevozchik {
 private:
-    double airportTax; // сбор
-    double flightHeight;   // высота полета
+    double airportTax;
+    double flightHeight;
 
 public:
     AirPlane();
@@ -17,15 +17,15 @@ public:
     void setFlightHeight(double height);
     double getFlightHeight() const;
 
-
     double calculateCost() const override;
     double calculateTime() const override;
 
-    std::ostream& output(std::ostream& os) const override;
-    std::istream& input(std::istream& is) override;
-
+    // Операторы сравнения
+    bool operator==(const AirPlane& other) const;
+    bool operator!=(const AirPlane& other) const;
+    
+    // Оператор присваивания
     AirPlane& operator=(const AirPlane& other);
 };
-
 
 #endif

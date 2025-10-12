@@ -8,7 +8,7 @@
 
 void demonstratePassengerPerevozchik() {
     std::cout << "---Base class demonstration---\n";
-    PassengerPerevozchik carrier1("General transport", 60, 0.5, 300); // 0.5 BYN за км
+    PassengerPerevozchik carrier1("General transport", 60, 0.5, 300);
     std::cout << carrier1 << "\n\n";
 
     PassengerPerevozchik carrier2;
@@ -18,60 +18,65 @@ void demonstratePassengerPerevozchik() {
 
     carrier1 = carrier2;
     std::cout << "After assignment carrier1 = carrier2\n" << carrier1 << "\n\n";
+
+    // Демонстрация операторов сравнения
+    std::cout << "Comparison operators:\n";
+    std::cout << "carrier1 == carrier2: " << (carrier1 == carrier2) << "\n";
+    std::cout << "carrier1 != carrier2: " << (carrier1 != carrier2) << "\n\n";
 }
 
 void demonstrateAirplane() {
     std::cout << "---Airplane class demonstration---\n";
-    AirPlane airplane1("Boeing 737", 800, 2.5, 2000, 50, 10000); // 2.5 BYN за км, 50 BYN такса
+    AirPlane airplane1("Boeing 737", 800, 2.5, 2000, 50, 10000);
     std::cout << airplane1 << "\n\n";
     
     AirPlane airplane2;
     std::cout << "Enter data for airplane:\n";
     std::cin >> airplane2;
     std::cout << "\nResult:\n" << airplane2 << "\n\n";
+
+    // Демонстрация операторов
+    airplane1 = airplane2;
+    std::cout << "After assignment:\n" << airplane1 << "\n\n";
     
-    // демо методов доступа
-    airplane1.setAirportTax(60);
-    airplane1.setFlightHeight(11000);
-    std::cout << "After changes:\n";
-    std::cout << "Airport tax: " << airplane1.getAirportTax() << " BYN\n";
-    std::cout << "Flight height: " << airplane1.getFlightHeight() << " m\n\n";
+    std::cout << "airplane1 == airplane2: " << (airplane1 == airplane2) << "\n";
+    std::cout << "airplane1 != airplane2: " << (airplane1 != airplane2) << "\n\n";
 }
 
 void demonstrateTrain() {
     std::cout << "---Train class demonstration---\n";
-    Train train1("Sapsan", 250, 0.8, 650, 10, "luxury"); // 0.8 BYN за км
+    Train train1("Sapsan", 250, 0.8, 650, 10, "luxury");
     std::cout << train1 << "\n\n";
     
     Train train2;
     std::cout << "Enter data for train:\n";
     std::cin >> train2;
     std::cout << "\nResult:\n" << train2 << "\n\n";
+
+    // Демонстрация операторов
+    train1 = train2;
+    std::cout << "After assignment:\n" << train1 << "\n\n";
     
-    // демо методов доступа
-    train1.setWagonCount(12);
-    train1.setComfortClass("coupe");
-    std::cout << "After changes:\n";
-    std::cout << "Wagon count: " << train1.getWagonCount() << "\n";
-    std::cout << "Comfort class: " << train1.getComfortClass() << "\n\n";
+    std::cout << "train1 == train2: " << (train1 == train2) << "\n";
+    std::cout << "train1 != train2: " << (train1 != train2) << "\n\n";
 }
 
 void demonstrateCar() {
     std::cout << "---Car class demonstration---\n";
-    Car car1("LAMBO", 90, 0.3, 500, 8, 8.5); // 0.3 BYN за км
+    Car car1("LAMBO", 90, 0.3, 500, 8, 8.5);
     std::cout << car1 << "\n\n";
     
     Car car2;
     std::cout << "Enter data for car:\n";
     std::cin >> car2;
     std::cout << "\nResult:\n" << car2 << "\n\n";
+
+    // Демонстрация операторов
+    car1 = car2;
+    std::cout << "After assignment:\n" << car1 << "\n\n";
     
-    // демо методов доступа
-    car1.setPassengerCapacity(6);
-    car1.setFuelConsumption(10.5);
-    std::cout << "After changes:\n";
-    std::cout << "Passenger capacity: " << car1.getPassengerCapacity() << " passengers\n";
-    std::cout << "Fuel consumption: " << car1.getFuelConsumption() << " l/100 km\n\n";
+    std::cout << "car1 == car2: " << (car1 == car2) << "\n";
+    std::cout << "car1 != car2: " << (car1 != car2) << "\n\n";
 }
 
 void demonstratePolymorphism() {
@@ -98,7 +103,6 @@ void setupConsole() {
 }
 
 int main() {
-    
     setupConsole();
     demonstratePassengerPerevozchik();
     demonstrateAirplane();

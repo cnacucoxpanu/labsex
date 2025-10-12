@@ -27,27 +27,17 @@ double AirPlane::calculateCost() const {
 }
 
 double AirPlane::calculateTime() const {
-    return (distance / speed) + 2.0; // + время на регистрацию
+    return (distance / speed) + 2.0;
 }
 
-std::ostream& AirPlane::output(std::ostream& os) const {
-    os << "---AIRPLANE---\n";
-    PassengerPerevozchik::output(os);
-    os << "\nAirport tax: " << airportTax << " BYN\n"
-       << "Flight height: " << flightHeight << " m\n"
-       << "Total time (with registration): " << calculateTime() << " h\n"
-       << "Total cost (with tax): " << calculateCost() << " BYN";
-    return os;
+bool AirPlane::operator==(const AirPlane& other) const {
+    return (PassengerPerevozchik::operator==(other) &&
+            airportTax == other.airportTax &&
+            flightHeight == other.flightHeight);
 }
 
-std::istream& AirPlane::input(std::istream& is) {
-    PassengerPerevozchik::input(is);
-    std::cout << "Enter airport tax (BYN): ";
-    is >> airportTax;
-    std::cout << "Enter flight height (m): ";
-    is >> flightHeight;
-    is.ignore();
-    return is;
+bool AirPlane::operator!=(const AirPlane& other) const {
+    return !(*this == other);
 }
 
 AirPlane& AirPlane::operator=(const AirPlane& other) {
@@ -57,4 +47,45 @@ AirPlane& AirPlane::operator=(const AirPlane& other) {
         flightHeight = other.flightHeight;
     }
     return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const AirPlane& airplane) {
+    os << "=== AIRPLANE ===\n"
+       << "Name: " << airplane.getName() << "\n"
+       << "Speed: " << airplane.getSpeed() << " km/h\n"
+       << "Cost per km: " << airplane.getCost() << " BYN\n"
+       << "Distance: " << airplane.getDistance() << " km\n"
+       << "Airport tax: " << airplane.getAirportTax() << " BYN\n"
+       << "Flight height: " << airplane.getFlightHeight() << " m\n"
+       << "Total time (with registration): " << airplane.calculateTime() << " h\n"
+       << "Total cost (with tax): " << airplane.calculateCost() << " BYN";
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, AirPlane& airplane) {
+    std::string name;
+    double speed, cost, distance, tax, height;
+    
+    std::cout << "Enter name: ";
+    getline(is, name);
+    std::cout << "Enter speed (km/h): ";
+    is >> speed;
+    std::cout << "Enter cost per km (BYN): ";
+    is >> cost;
+    std::cout << "Enter distance (km): ";
+    is >> distance;
+    std::cout << "Enter airport tax (BYN): ";
+    is >> tax;
+    std::cout << "Enter flight height (m): ";
+    is >> height;
+    is.ignore();
+    
+    airplane.setName(name);
+    airplane.setSpeed(speed);
+    airplane.setCost(cost);
+    airplane.setDistance(distance);
+    airplane.setAirportTax(tax);
+    airplane.setFlightHeight(height);
+    
+    return is;
 }

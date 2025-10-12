@@ -2,27 +2,30 @@
 #define TRAIN_H
 
 #include "PassengerPerevozchik.h"
-    class Train : public PassengerPerevozchik {
-    private:
-        int wagonCount;
-        std::string comfortClass;
 
-    public:
-        Train();
-        Train(const std::string& n, double s, double c, double d, int wagons, const std::string& comfort);
+class Train : public PassengerPerevozchik {
+private:
+    int wagonCount;
+    std::string comfortClass;
 
-        void setWagonCount(int count);
-        int getWagonCount() const;
-        void setComfortClass(const std::string& comfort);
-        std::string getComfortClass() const;
+public:
+    Train();
+    Train(const std::string& n, double s, double c, double d, int wagons, const std::string& comfort);
 
-        double calculateCost() const override;
-        double calculateTime() const override;
+    void setWagonCount(int count);
+    int getWagonCount() const;
+    void setComfortClass(const std::string& comfort);
+    std::string getComfortClass() const;
 
-        std::ostream& output(std::ostream& os) const override;
-        std::istream& input(std::istream& is) override;
+    double calculateCost() const override;
+    double calculateTime() const override;
 
-        Train& operator=(const Train& other);
-    };
+    // Операторы сравнения
+    bool operator==(const Train& other) const;
+    bool operator!=(const Train& other) const;
+    
+    // Оператор присваивания
+    Train& operator=(const Train& other);
+};
 
 #endif

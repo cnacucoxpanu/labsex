@@ -45,28 +45,13 @@ double PassengerPerevozchik::calculateCost() const {
     return distance * cost;
 }
 
-
-std::ostream& PassengerPerevozchik::output(std::ostream& os) const {
-    os << "Name: " << name << "\n"
-       << "Speed: " << speed << " km/h\n"
-       << "Cost per km: " << cost << " BYN\n"
-       << "Distance: " << distance << " km\n"
-       << "Travel time: " << calculateTime() << " h\n"
-       << "Trip cost: " << calculateCost() << " BYN";
-    return os;
+bool PassengerPerevozchik::operator==(const PassengerPerevozchik& other) const {
+    return (name == other.name && speed == other.speed && 
+            cost == other.cost && distance == other.distance);
 }
 
-std::istream& PassengerPerevozchik::input(std::istream& is) {
-    std::cout << "Enter name: ";
-    getline(is, name);
-    std::cout << "Enter speed (km/h): ";
-    is >> speed;
-    std::cout << "Enter cost per km (BYN): ";
-    is >> cost;
-    std::cout << "Enter distance (km): ";
-    is >> distance;
-    is.ignore(); // очистка буфера
-    return is;
+bool PassengerPerevozchik::operator!=(const PassengerPerevozchik& other) const {
+    return !(*this == other);
 }
 
 PassengerPerevozchik& PassengerPerevozchik::operator=(const PassengerPerevozchik& other) {
@@ -79,12 +64,34 @@ PassengerPerevozchik& PassengerPerevozchik::operator=(const PassengerPerevozchik
     return *this;
 }
 
-PassengerPerevozchik::~PassengerPerevozchik() {}
-
 std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& carrier) {
-    return carrier.output(os);
+    os << "Name: " << carrier.getName() << "\n"
+       << "Speed: " << carrier.getSpeed() << " km/h\n"
+       << "Cost per km: " << carrier.getCost() << " BYN\n"
+       << "Distance: " << carrier.getDistance() << " km\n"
+       << "Travel time: " << carrier.calculateTime() << " h\n"
+       << "Trip cost: " << carrier.calculateCost() << " BYN";
+    return os;
 }
 
 std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier) {
-    return carrier.input(is);
+    std::string name;
+    double speed, cost, distance;
+    
+    std::cout << "Enter name: ";
+    getline(is, name);
+    std::cout << "Enter speed (km/h): ";
+    is >> speed;
+    std::cout << "Enter cost per km (BYN): ";
+    is >> cost;
+    std::cout << "Enter distance (km): ";
+    is >> distance;
+    is.ignore();
+    
+    carrier.setName(name);
+    carrier.setSpeed(speed);
+    carrier.setCost(cost);
+    carrier.setDistance(distance);
+    
+    return is;
 }

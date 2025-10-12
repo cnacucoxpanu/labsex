@@ -1,22 +1,20 @@
-#ifndef PassengerPerevozchik_H
-#define PassengerPerevozchik_H
+#ifndef PASSENGERPEREVOZCHIK_H
+#define PASSENGERPEREVOZCHIK_H
 
 #include <iostream>
-#include <cstring>
+#include <string>
 
 class PassengerPerevozchik {
 protected:
     std::string name;
     double speed;
-    double cost; // за один километр
+    double cost;
     double distance;
-
 
 public:
     PassengerPerevozchik();
     PassengerPerevozchik(const std::string& n, double s, double c, double d);
-
-    // методы
+    
     void setName(const std::string& newName);
     std::string getName() const;
     void setSpeed(double newSpeed);
@@ -25,24 +23,22 @@ public:
     double getCost() const;
     void setDistance(double newDistance);
     double getDistance() const;
-
-
-    //вирт ))
+    
     virtual double calculateTime() const;
     virtual double calculateCost() const;
-
-    //вирт ввод вывод
-    virtual std::ostream& output(std::ostream& os) const;
-    virtual std::istream& input(std::istream& is);
-
+    
+    // Операторы сравнения
+    bool operator==(const PassengerPerevozchik& other) const;
+    bool operator!=(const PassengerPerevozchik& other) const;
+    
+    // Оператор присваивания
     PassengerPerevozchik& operator=(const PassengerPerevozchik& other);
-
-    virtual ~PassengerPerevozchik();
+    
+    virtual ~PassengerPerevozchik() = default;
 };
 
-
-    std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& carrier);
-    std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier);
-
+// Глобальные операторы ввода/вывода
+std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& carrier);
+std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier);
 
 #endif
