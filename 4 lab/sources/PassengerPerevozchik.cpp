@@ -1,4 +1,6 @@
 #include "../headers/PassengerPerevozchik.h"
+#include <iostream>
+#include <limits>
 
 PassengerPerevozchik::PassengerPerevozchik() : name(""), speed(0), cost(0), distance(0) {}
 
@@ -113,19 +115,17 @@ std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier) {
     double speed, cost, distance;
     
     std::cout << "Введите имя: ";
-    if (!std::getline(is, name)) return is;
+    std::cin.ignore();
+    std::getline(std::cin, name);
     
     std::cout << "Введите скорость (km/h): ";
-    is >> speed;
-    is.ignore(1000, '\n');
+    std::cin >> speed;
     
     std::cout << "Введите стоимость за км (BYN): ";
-    is >> cost;
-    is.ignore(1000, '\n');
+    std::cin >> cost;
     
     std::cout << "Введите расстояние (km): ";
-    is >> distance;
-    is.ignore(1000, '\n');
+    std::cin >> distance;
     
     carrier.setName(name);
     carrier.setSpeed(speed);

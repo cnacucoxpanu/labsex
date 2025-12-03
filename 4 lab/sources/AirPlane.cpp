@@ -1,75 +1,69 @@
-#include "../headers/Train.h"
+#include "../headers/AirPlane.h"
 #include <iostream>
 #include <iomanip>
 
-Train::Train() : PassengerPerevozchik(), wagonCount(0), comfortClass("") {}
+AirPlane::AirPlane() : PassengerPerevozchik(), airportTax(0), flightHeight(0) {}
 
-Train::Train(const std::string& n, double s, double c, double d, int wagons, const std::string& comfort)
-    : PassengerPerevozchik(n, s, c, d), wagonCount(wagons), comfortClass(comfort) {}
+AirPlane::AirPlane(const std::string& n, double s, double c, double d, double tax, double height)
+    : PassengerPerevozchik(n, s, c, d), airportTax(tax), flightHeight(height) {}
 
-void Train::setWagonCount(int count) {
-    wagonCount = count;
+void AirPlane::setAirportTax(double tax) {
+    airportTax = tax;
 }
 
-int Train::getWagonCount() const {
-    return wagonCount;
+double AirPlane::getAirportTax() const {
+    return airportTax;
 }
 
-void Train::setComfortClass(const std::string& comfort) {
-    comfortClass = comfort;
+void AirPlane::setFlightHeight(double height) {
+    flightHeight = height;
 }
 
-std::string Train::getComfortClass() const {
-    return comfortClass;
+double AirPlane::getFlightHeight() const {
+    return flightHeight;
 }
 
-double Train::calculateCost() const {
-    double multiplier = 1.0;
-    if (comfortClass == "luxury") multiplier = 1.5;
-    else if (comfortClass == "coupe") multiplier = 1.2;
-    else if (comfortClass == "platzkart") multiplier = 1.0;
-    
-    return distance * cost * multiplier;
+double AirPlane::calculateCost() const {
+    return (distance * cost) + airportTax;
 }
 
-double Train::calculateTime() const {
-    double stopTime = (distance / 100) * (5.00 / 60);
-    return (distance / speed) + stopTime;
+double AirPlane::calculateTime() const {
+    return (distance / speed) + 2.0;
 }
 
-void Train::shapka() const {
+void AirPlane::shapka() const {
     std::cout << std::setw(20) << std::left << "Name" 
               << std::setw(15) << std::left << "Speed" 
               << std::setw(15) << std::left << "Cost"
               << std::setw(15) << std::left << "Distance"
-              << std::setw(15) << std::left << "Wagons"
-              << std::setw(15) << std::left << "Class"
+              << std::setw(15) << std::left << "Tax"
+              << std::setw(15) << std::left << "Height"
               << std::setw(15) << std::left << "Time"
               << std::setw(15) << std::left << "Total" << std::endl;
     std::cout << std::string(140, '-') << std::endl;
 }
 
-void Train::print() const {
+void AirPlane::print() const {
     std::cout << std::setw(20) << std::left << getName() 
               << std::setw(15) << std::left << getSpeed() 
               << std::setw(15) << std::left << getCost()
               << std::setw(15) << std::left << getDistance()
-              << std::setw(15) << std::left << wagonCount
-              << std::setw(15) << std::left << comfortClass
+              << std::setw(15) << std::left << airportTax
+              << std::setw(15) << std::left << flightHeight
               << std::setw(15) << std::left << calculateTime()
               << std::setw(15) << std::left << calculateCost();
 }
 
-void Train::setMenu() {
+void AirPlane::setMenu() {
     int choice;
     do {
-        std::cout << "\n=== Редактирование параметров поезда ===" << std::endl;
+        std::cout << "\n=== Редактирование параметров самолета ===" << std::endl;
         std::cout << "1. Изменить имя (" << getName() << ")" << std::endl;
         std::cout << "2. Изменить скорость (" << getSpeed() << " км/ч)" << std::endl;
         std::cout << "3. Изменить стоимость (" << getCost() << " BYN/км)" << std::endl;
         std::cout << "4. Изменить расстояние (" << getDistance() << " км)" << std::endl;
-        std::cout << "5. Изменить количество вагонов (" << getWagonCount() << ")" << std::endl;
-        std::cout << "6. Изменить класс комфорта (" << getComfortClass() << ")" << std::endl;
+        std::cout << "5. Изменить аэропортовый сбор (" << getAirportTax() << " BYN)" << std::endl;
+        std::cout << "6. Изменить высоту полета (" << getFlightHeight() << " м)" << std::endl;
         std::cout << "0. Назад" << std::endl;
         std::cout << "Выберите параметр для редактирования: ";
         std::cin >> choice;
@@ -109,20 +103,19 @@ void Train::setMenu() {
             break;
         }
         case 5: {
-            int newWagons;
-            std::cout << "Новое количество вагонов: ";
-            std::cin >> newWagons;
-            setWagonCount(newWagons);
-            std::cout << "Параметр количества вагонов изменен!" << std::endl;
+            double newTax;
+            std::cout << "Новый аэропортовый сбор: ";
+            std::cin >> newTax;
+            setAirportTax(newTax);
+            std::cout << "Параметр аэропортового сбора изменен!" << std::endl;
             break;
         }
         case 6: {
-            std::string newClass;
-            std::cout << "Новый класс комфорта: ";
-            std::cin.ignore();
-            std::getline(std::cin, newClass);
-            setComfortClass(newClass);
-            std::cout << "Параметр класса комфорта изменен!" << std::endl;
+            double newHeight;
+            std::cout << "Новая высота полета: ";
+            std::cin >> newHeight;
+            setFlightHeight(newHeight);
+            std::cout << "Параметр высоты полета изменен!" << std::endl;
             break;
         }
         case 0:
@@ -133,39 +126,41 @@ void Train::setMenu() {
     } while (choice != 0);
 }
 
-std::istream& operator>>(std::istream& is, Train& train) {
-    std::string name, comfort;
-    double speed, cost, distance;
-    int wagons;
+std::istream& operator>>(std::istream& is, AirPlane& airplane) {
+    std::string name;
+    double speed, cost, distance, tax, height;
     
+    std::cout << "\n=== Ввод данных самолета ===" << std::endl;
     std::cout << "Введите имя: ";
-    if (!std::getline(is, name)) return is;
+    std::cin.ignore();
+    std::getline(std::cin, name);
     
     std::cout << "Введите скорость (km/h): ";
-    is >> speed;
-    is.ignore(1000, '\n');
+    std::cin >> speed;
+    std::cin.ignore(1000, '\n');
     
     std::cout << "Введите стоимость за км (BYN): ";
-    is >> cost;
-    is.ignore(1000, '\n');
+    std::cin >> cost;
+    std::cin.ignore(1000, '\n');
     
     std::cout << "Введите расстояние (km): ";
-    is >> distance;
-    is.ignore(1000, '\n');
+    std::cin >> distance;
+    std::cin.ignore(1000, '\n');
     
-    std::cout << "Введите количество вагонов: ";
-    is >> wagons;
-    is.ignore(1000, '\n');
+    std::cout << "Введите аэропортовый сбор (BYN): ";
+    std::cin >> tax;
+    std::cin.ignore(1000, '\n');
     
-    std::cout << "Введите класс комфорта (luxury/coupe/platzkart): ";
-    if (!std::getline(is, comfort)) return is;
+    std::cout << "Введите высоту полета (m): ";
+    std::cin >> height;
+    std::cin.ignore(1000, '\n');
     
-    train.setName(name);
-    train.setSpeed(speed);
-    train.setCost(cost);
-    train.setDistance(distance);
-    train.setWagonCount(wagons);
-    train.setComfortClass(comfort);
+    airplane.setName(name);
+    airplane.setSpeed(speed);
+    airplane.setCost(cost);
+    airplane.setDistance(distance); 
+    airplane.setAirportTax(tax);
+    airplane.setFlightHeight(height);
     
     return is;
 }

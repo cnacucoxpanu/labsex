@@ -21,6 +21,13 @@ public:
     double calculateTime() const override;
     void shapka() const override;
     void print() const override;
+    
+    friend std::ostream& operator<<(std::ostream& os, const Car& obj) {
+        os << obj.getName();
+        return os;
+    }
 };
+
+std::istream& operator>>(std::istream& is, Car& car);
 
 #endif
