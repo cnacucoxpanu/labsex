@@ -31,8 +31,11 @@ public:
     virtual void print() const;
     virtual void setMenu();
     virtual ~PassengerPerevozchik() {}
-
     
+    friend std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& obj) {
+        os << obj.name;
+        return os;
+    }
 };
 
 std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier);

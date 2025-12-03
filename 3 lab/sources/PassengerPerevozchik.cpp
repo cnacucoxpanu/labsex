@@ -1,4 +1,4 @@
-#include "PassengerPerevozchik.h"
+#include "../headers/PassengerPerevozchik.h"
 
 PassengerPerevozchik::PassengerPerevozchik() : name(""), speed(0), cost(0), distance(0) {}
 
@@ -45,48 +45,87 @@ double PassengerPerevozchik::calculateCost() const {
     return distance * cost;
 }
 
-bool PassengerPerevozchik::operator==(const PassengerPerevozchik& other) const {
-    return (name == other.name && speed == other.speed && 
-            cost == other.cost && distance == other.distance);
+void PassengerPerevozchik::setMenu() {
+    int choice;
+    do {
+        std::cout << "\n=== Редактирование параметров перевозчика ===" << std::endl;
+        std::cout << "1. Изменить имя (" << getName() << ")" << std::endl;
+        std::cout << "2. Изменить скорость (" << getSpeed() << " км/ч)" << std::endl;
+        std::cout << "3. Изменить стоимость (" << getCost() << " BYN/км)" << std::endl;
+        std::cout << "4. Изменить расстояние (" << getDistance() << " км)" << std::endl;
+        std::cout << "0. Назад" << std::endl;
+        std::cout << "Выберите параметр для редактирования: ";
+        std::cin >> choice;
+
+        switch (choice) {
+        case 1: {
+            std::string newName;
+            std::cout << "Новое имя: ";
+            std::cin.ignore();
+            std::getline(std::cin, newName);
+            setName(newName);
+            std::cout << "Параметр имени изменен!" << std::endl;
+            break;
+        }
+        case 2: {
+            double newSpeed;
+            std::cout << "Новая скорость: ";
+            std::cin >> newSpeed;
+            setSpeed(newSpeed);
+            std::cout << "Параметр скорости изменен!" << std::endl;
+            break;
+        }
+        case 3: {
+            double newCost;
+            std::cout << "Новая стоимость: ";
+            std::cin >> newCost;
+            setCost(newCost);
+            std::cout << "Параметр стоимости изменен!" << std::endl;
+            break;
+        }
+        case 4: {
+            double newDistance;
+            std::cout << "Новое расстояние: ";
+            std::cin >> newDistance;
+            setDistance(newDistance);
+            std::cout << "Параметр расстояния изменен!" << std::endl;
+            break;
+        }
+        case 0:
+            break;
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+        }
+    } while (choice != 0);
 }
 
-bool PassengerPerevozchik::operator!=(const PassengerPerevozchik& other) const {
-    return !(*this == other);
-}
-
-PassengerPerevozchik& PassengerPerevozchik::operator=(const PassengerPerevozchik& other) {
-    if(this != &other) {
-        name = other.name;
-        speed = other.speed;
-        cost = other.cost;
-        distance = other.distance;
-    }
-    return *this;
-}
-
-std::ostream& operator<<(std::ostream& os, const PassengerPerevozchik& carrier) {
-    os << "Name: " << carrier.getName() << "\n"
-       << "Speed: " << carrier.getSpeed() << " km/h\n"
-       << "Cost per km: " << carrier.getCost() << " BYN\n"
-       << "Distance: " << carrier.getDistance() << " km\n"
-       << "Travel time: " << carrier.calculateTime() << " h\n"
-       << "Trip cost: " << carrier.calculateCost() << " BYN";
-    return os;
+void PassengerPerevozchik::print() const {
+    std::cout << std::setw(20) << std::left << name 
+              << std::setw(15) << std::left << speed 
+              << std::setw(15) << std::left << cost
+              << std::setw(15) << std::left << distance
+              << std::setw(15) << std::left << calculateTime()
+              << std::setw(15) << std::left << calculateCost();
 }
 
 std::istream& operator>>(std::istream& is, PassengerPerevozchik& carrier) {
     std::string name;
     double speed, cost, distance;
     
-    std::cout << "Enter name: ";
-    getline(is, name);
-    std::cout << "Enter speed (km/h): ";
+    std::cout << "Введите имя: ";
+    if (!std::getline(is, name)) return is;
+    
+    std::cout << "Введите скорость (km/h): ";
     is >> speed;
-    std::cout << "Enter cost per km (BYN): ";
+    is.ignore(1000, '\n');
+    
+    std::cout << "Введите стоимость за км (BYN): ";
     is >> cost;
-    std::cout << "Enter distance (km): ";
+    is.ignore(1000, '\n');
+    
+    std::cout << "Введите расстояние (km): ";
     is >> distance;
-    is.ignore();
+    is.ignore(1000, '\n');
     
     carrier.setName(name);
     carrier.setSpeed(speed);

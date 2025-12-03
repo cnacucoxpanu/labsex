@@ -1,114 +1,186 @@
 #include <iostream>
 #include <vector>
-#include "PassengerPerevozchik.h"
-#include "AirPlane.h"
-#include "Train.h"
-#include "Car.h"
+#include "../headers/PassengerPerevozchik.h"
+#include "../headers/AirPlane.h"
+#include "../headers/Train.h"
+#include "../headers/Car.h"
 #include <windows.h>
+using namespace std;
 
-void demonstratePassengerPerevozchik() {
-    std::cout << "---Base class demonstration---\n";
-    PassengerPerevozchik carrier1("General transport", 60, 0.5, 300);
-    std::cout << carrier1 << "\n\n";
-
-    PassengerPerevozchik carrier2;
-    std::cout << "Enter data for base transport:\n";
-    std::cin >> carrier2;
-    std::cout << "\nResult:\n" << carrier2 << "\n\n";
-
-    carrier1 = carrier2;
-    std::cout << "After assignment carrier1 = carrier2\n" << carrier1 << "\n\n";
-
-    // Демонстрация операторов сравнения
-    std::cout << "Comparison operators:\n";
-    std::cout << "carrier1 == carrier2: " << (carrier1 == carrier2) << "\n";
-    std::cout << "carrier1 != carrier2: " << (carrier1 != carrier2) << "\n\n";
+void clearInputBuffer() {
+    cin.clear();
+    cin.ignore(1000, '\n');
 }
 
-void demonstrateAirplane() {
-    std::cout << "---Airplane class demonstration---\n";
-    AirPlane airplane1("Boeing 737", 800, 2.5, 2000, 50, 10000);
-    std::cout << airplane1 << "\n\n";
+int main()
+{
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
     
-    AirPlane airplane2;
-    std::cout << "Enter data for airplane:\n";
-    std::cin >> airplane2;
-    std::cout << "\nResult:\n" << airplane2 << "\n\n";
-
-    // Демонстрация операторов
-    airplane1 = airplane2;
-    std::cout << "After assignment:\n" << airplane1 << "\n\n";
+    int size;
     
-    std::cout << "airplane1 == airplane2: " << (airplane1 == airplane2) << "\n";
-    std::cout << "airplane1 != airplane2: " << (airplane1 != airplane2) << "\n\n";
-}
-
-void demonstrateTrain() {
-    std::cout << "---Train class demonstration---\n";
-    Train train1("Sapsan", 250, 0.8, 650, 10, "luxury");
-    std::cout << train1 << "\n\n";
+    //массив объектов AirPlane
+    cout << "=== КЛАСС AirPlane ===" << endl;
+    cout << "Сколько самолетов создать? ";
+    cin >> size;
+    clearInputBuffer();
     
-    Train train2;
-    std::cout << "Enter data for train:\n";
-    std::cin >> train2;
-    std::cout << "\nResult:\n" << train2 << "\n\n";
-
-    // Демонстрация операторов
-    train1 = train2;
-    std::cout << "After assignment:\n" << train1 << "\n\n";
+    AirPlane* airplanes = new AirPlane[size];
     
-    std::cout << "train1 == train2: " << (train1 == train2) << "\n";
-    std::cout << "train1 != train2: " << (train1 != train2) << "\n\n";
-}
-
-void demonstrateCar() {
-    std::cout << "---Car class demonstration---\n";
-    Car car1("LAMBO", 90, 0.3, 500, 8, 8.5);
-    std::cout << car1 << "\n\n";
-    
-    Car car2;
-    std::cout << "Enter data for car:\n";
-    std::cin >> car2;
-    std::cout << "\nResult:\n" << car2 << "\n\n";
-
-    // Демонстрация операторов
-    car1 = car2;
-    std::cout << "After assignment:\n" << car1 << "\n\n";
-    
-    std::cout << "car1 == car2: " << (car1 == car2) << "\n";
-    std::cout << "car1 != car2: " << (car1 != car2) << "\n\n";
-}
-
-void demonstratePolymorphism() {
-    std::cout << "--- Polymorphism demonstration ---\n";
-    
-    std::vector<PassengerPerevozchik*> carriers;
-    
-    carriers.push_back(new AirPlane("Belavia", 850, 2.0, 1500, 45, 9500));
-    carriers.push_back(new Train("Minsk -> Saint-Petersburg", 160, 0.6, 400, 8, "coupe"));
-    carriers.push_back(new Car("Minsk taxi", 80, 0.4, 300, 4, 9.0));
-    
-    for (size_t i = 0; i < carriers.size(); ++i) {
-        std::cout << *carriers[i] << "\n\n";
+    cout << "\n--- Ввод данных ---" << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Самолет " << i + 1 << ":" << endl;
+        cin >> airplanes[i];
     }
+    
+    cout << "\n--- Таблица AirPlane ---" << endl;
+    if (size > 0) {
+        airplanes[0].shapka();
+        for(int i = 0; i < size; i++)
+        {
+            airplanes[i].print();
+            cout << endl;
+        }
+    }
+    
+    //массив объектов Train
+    cout << "\n\n=== КЛАСС Train ===" << endl;
+    cout << "Сколько поездов создать? ";
+    cin >> size;
+    clearInputBuffer();
+    
+    Train* trains = new Train[size];
+    
+    cout << "\n--- Ввод данных ---" << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Поезд " << i + 1 << ":" << endl;
+        cin >> trains[i];
+    }
+    
+    cout << "\n--- Таблица Train ---" << endl;
+    if (size > 0) {
+        trains[0].shapka();
+        for(int i = 0; i < size; i++)
+        {
+            trains[i].print();
+            cout << endl;
+        }
+    }
+    
+    //массив объектов Car
+    cout << "\n\n=== КЛАСС Car ===" << endl;
+    cout << "Сколько автомобилей создать? ";
+    cin >> size;
+    clearInputBuffer();
+    
+    Car* cars = new Car[size];
+    
+    cout << "\n--- Ввод данных ---" << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cout << "Автомобиль " << i + 1 << ":" << endl;
+        cin >> cars[i];
+    }
+    
+    cout << "\n--- Таблица Car ---" << endl;
+    if (size > 0) {
+        cars[0].shapka();
+        for(int i = 0; i < size; i++)
+        {
+            cars[i].print();
+            cout << endl;
+        }
+    }
+
+    // Демонстрация виртуальных меню для объектов из массивов
+    cout << "\n=== РЕДАКТИРОВАНИЕ ОБЪЕКТОВ ИЗ МАССИВОВ ===" << endl;
+
+    if (size > 0) {
+        // Редактирование первого самолета из массива
+        cout << "\n--- Редактирование самолета из массива ---" << endl;
+        airplanes[0].setMenu();
+
+        // Редактирование первого поезда из массива
+        cout << "\n--- Редактирование поезда из массива ---" << endl;
+        trains[0].setMenu();
+
+        // Редактирование первой машины из массива
+        cout << "\n--- Редактирование автомобиля из массива ---" << endl;
+        cars[0].setMenu();
+
+        // Показываем измененные объекты
+        cout << "\n--- Измененные объекты ---" << endl;
+        airplanes[0].shapka();
+        airplanes[0].print(); cout << endl;
+        trains[0].shapka();
+        trains[0].print(); cout << endl;
+        cars[0].shapka();
+        cars[0].print(); cout << endl;
+    }
+
+    // Демонстрация виртуальных меню для новых объектов
+    cout << "\n=== ДЕМОНСТРАЦИЯ ВИРТУАЛЬНЫХ МЕНЮ ===" << endl;
+
+    // Создаем новые объекты для демонстрации
+    AirPlane demoPlane("DEMO-AIRPLANE", 800, 2.0, 1000, 50, 9000);
+    Train demoTrain("DEMO-TRAIN", 150, 0.6, 300, 6, "coupe");
+    Car demoCar("DEMO-CAR", 90, 0.4, 200, 4, 9.0);
+
+    // Демонстрация меню самолета
+    cout << "\n--- Меню изменения самолета ---" << endl;
+    demoPlane.setMenu();
+
+    // Демонстрация меню поезда
+    cout << "\n--- Меню изменения поезда ---" << endl;
+    demoTrain.setMenu();
+
+    // Демонстрация меню автомобиля
+    cout << "\n--- Меню изменения автомобиля ---" << endl;
+    demoCar.setMenu();
+
+    // Полиморфизм меню через базовый класс
+    cout << "\n--- ПОЛИМОРФИЗМ МЕНЮ ---" << endl;
+    vector<PassengerPerevozchik*> demoCarriers;
+    demoCarriers.push_back(new AirPlane("POLY-AIR", 700, 1.8, 800, 40, 8000));
+    demoCarriers.push_back(new Train("POLY-TRAIN", 120, 0.5, 250, 5, "platzkart"));
+    demoCarriers.push_back(new Car("POLY-CAR", 80, 0.3, 150, 3, 8.0));
+
+    for (auto carrier : demoCarriers) {
+        carrier->setMenu();  // Виртуальный вызов!
+    }
+
+    // Демонстрация полиморфизма вывода
+    cout << "\n=== ДЕМОНСТРАЦИЯ ПОЛИМОРФИЗМА ===" << endl;
+    vector<PassengerPerevozchik*> carriers;
+    carriers.push_back(new AirPlane("AIRBUS-A320", 850, 2.2, 1200, 60, 10000));
+    carriers.push_back(new Train("SWALLOW", 160, 0.7, 400, 8, "luxury"));
+    carriers.push_back(new Car("Mercedes", 100, 0.5, 250, 4, 10.0));
+    
+    // Выводим заголовок ОДИН раз
+    if (!carriers.empty()) {
+        carriers[0]->shapka();
+    }
+    
+    for (size_t i = 0; i < carriers.size(); i++)
+    {
+        carriers[i]->print();
+        cout << endl;
+    }
+    
+    // Очистка памяти
+    delete[] airplanes;
+    delete[] trains;
+    delete[] cars;
     
     for (auto carrier : carriers) {
         delete carrier;
     }
-}
-
-void setupConsole() {
-    SetConsoleOutputCP(1251);
-    SetConsoleCP(1251);
-}
-
-int main() {
-    setupConsole();
-    demonstratePassengerPerevozchik();
-    demonstrateAirplane();
-    demonstrateTrain();
-    demonstrateCar();
-    demonstratePolymorphism();
+    
+    for (auto carrier : demoCarriers) {
+        delete carrier;
+    }
     
     return 0;
 }
