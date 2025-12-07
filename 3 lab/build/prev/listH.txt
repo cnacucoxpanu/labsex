@@ -1,8 +1,4 @@
 ./headers/AirPlane.h
 ./headers/Car.h
-./headers/exp.h
-./headers/expInput.h
-./headers/interface.h
-./headers/ochered_node.h
 ./headers/PassengerPerevozchik.h
 ./headers/Train.h

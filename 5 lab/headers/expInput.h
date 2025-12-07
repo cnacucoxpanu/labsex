@@ -11,6 +11,7 @@
 #define ERROR_SPECIAL_CHARS 3
 #define ERROR_NUMBER_FORMAT 4
 #define ERROR_NUMBER_RANGE 5
+#define ERROR_NOT_ENGLISH_LETTERS 6 // Только английские буквы
 
 class ExpInput : public Exp
 {
@@ -115,6 +116,23 @@ public:
         if (input == "true" || input == "1") return true;
         if (input == "false" || input == "0") return false;
         throw ExpInput("InvalidBool", ERROR_NUMBER_FORMAT);
+    }
+    
+    // 5. Проверка, что строка состоит только из английских букв (A-Z, a-z)
+    std::string isEnglishLetters(const std::string& input) {
+        try {
+            if (input.empty()) {
+                throw ExpInput("EmptyEnglishLetters", ERROR_EMPTY_INPUT);
+            }
+            for (char c : input) {
+                if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
+                    throw ExpInput("NotEnglishLetters", ERROR_NOT_ENGLISH_LETTERS);
+                }
+            }
+            return input;
+        } catch (const ExpInput& e) {
+            throw;
+        }
     }
 };
 
